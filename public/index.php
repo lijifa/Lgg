@@ -10,6 +10,7 @@
 // +----------------------------------------------------------------------
 
 // [ 应用入口文件 ]
+echo 'jsjsjsjsssjjsjsjsjsjjs';exit;
 
 // 定义应用目录
 define('APP_PATH', __DIR__ . '/../application/');
