@@ -31,7 +31,18 @@ class VipModel extends Model
 
 		return $resData;
 	}
-	//添加
+
+	/*
+	* 添加
+	* @post:
+	**/
+	public function add($data) {
+		// 添加单条数据
+		$res = Db::name($this->vip)->insert($data);
+		$userId = Db::name($this->vip)->getLastInsID();
+		//echo VipModel::getLastSql();
+		return $userId;
+	}
 
 	//删除
 

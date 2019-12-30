@@ -67,8 +67,11 @@ class Vip
         $data['userpic'] = input('userpic');
         $data['token'] = getRandChar(32);
         $data['token_time'] = time();
-        $vipId = db('vip')->getLastInsID($data);
-        if($user){
+        //$ = Db::name('vip')->getLastInsID($data);
+        $vip = new VipModel();
+        // 查询数据集
+        $vipId= $vip->add($data);
+        if($vipId){
             $data['vipId'] = $vipId;
             Session::set('vipData', $data);
             return json(['status'=>200,'msg'=>'注册成功','data'=>$data]);
