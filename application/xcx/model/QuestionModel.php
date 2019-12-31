@@ -63,4 +63,15 @@ class QuestionModel extends Model
 		//echo QuestionModel::getLastSql();
 		return $res;
 	}
+
+	/*
+	* 详情
+	* @post:
+	**/
+	public function detail($where) {
+		// 更新单条数据
+		$res = Db::name($this->question)->where($where)->find();
+		//echo QuestionModel::getLastSql();
+		return $res;
+	}
 }

@@ -1,6 +1,7 @@
 <?php
 namespace app\xcx\controller;
 use app\xcx\model\OrderModel;
+use app\xcx\model\QuestionTypeModel;
 
 class Order
 {
@@ -36,9 +37,15 @@ class Order
         //根据分类判断积分规则
 
 
-        $type = new OrderModel();
+        $order = new OrderModel();
+        $questionType = new QuestionTypeModel();
+
+        $qtData = $questionType->detail('id = '. $data['question_type_id']);
+        $addData['question_type'] = $qtData['typename'];
+        
+
         // 添加数据
-        $res = $type->add($addData);
+        $res = $order->add($addData);
 
         return format_return_data();
     }

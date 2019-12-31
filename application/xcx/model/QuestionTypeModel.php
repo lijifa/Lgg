@@ -46,4 +46,16 @@ class QuestionTypeModel extends Model
 
 		return $resData;
 	}
+
+	
+	/*
+	* 详情
+	* @post:
+	**/
+	public function detail($where) {
+		// 更新单条数据
+		$res = Db::name($this->question_type)->where($where)->find();
+		//echo QuestionModel::getLastSql();
+		return $res;
+	}
 }
