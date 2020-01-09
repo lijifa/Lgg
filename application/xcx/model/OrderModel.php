@@ -78,7 +78,7 @@ class OrderModel extends Model
 		$order_res = Db::name($this->order)->where($where)->find();
 
 		// 获取返回内容
-		$res = Db::name($this->result)->where('rule_id', 'in', $order_res['result_ids'])->select();
+		$res = Db::name($this->result)->where('rule_id', 'in', $order_res['result_ids'])->order('score_type')->select();
 
 		$order_res['result'] = $res;
 		return $order_res;

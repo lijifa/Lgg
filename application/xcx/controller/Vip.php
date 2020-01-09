@@ -47,7 +47,7 @@ class Vip
                 $user['token'] = $this->restToken($openid);
                 if($user['token']){
                     Session::set('vipData', $user);
-                    return json(['status'=>200,'msg'=>'验证成功2','data'=>$user]);
+                    return json(['status'=>200,'msg'=>'验证成功','data'=>$user]);
                 }else{
                     return json(['status'=>401,'msg'=>'token重置失败']);
                 }
