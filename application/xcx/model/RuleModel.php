@@ -99,9 +99,6 @@ class RuleModel extends Model
 	* @post:
 	**/
 	public function add($ruleData, $resultData) {
-		dump($ruleData);
-		dump($resultData);
-		exit;
 		// 添加返回内容
 		$res_1 = db($this->rule)->insertGetId($ruleData);
 		$res_2 = false;

@@ -32,6 +32,23 @@ class QuestionModel extends Model
 	}
 
 	/*
+	* 获取列表【全部】
+	* @post:
+	**/
+	public function getAllList($where, $order='id desc') {
+		$count = Db::name($this->question)->where($where)->count();
+		
+		$list = Db::name($this->question)->where($where)->order($order)->select();
+	
+		$resData = [
+			'totalRow' => $count,
+	        'list' => $list
+		];
+
+		return $resData;
+	}
+
+	/*
 	* 添加
 	* @post:
 	**/

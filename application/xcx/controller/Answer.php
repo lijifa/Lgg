@@ -1,6 +1,7 @@
 <?php
 namespace app\xcx\controller;
 use app\xcx\model\AnswerModel;
+use app\xcx\model\OrderModel;
 
 class Answer
 {
@@ -41,6 +42,21 @@ class Answer
         $res = $type->edit('id = '.$data['id'], $data);
 
         return format_return_data();
+    }
+
+    //修改
+    public function getAnswer()
+    {
+        $data = input('param.');
+        if(!$data['id']){
+            return format_return_data('', 'error');
+        }
+
+        $order = new OrderModel();
+        // 查询订单详情
+        $res = $order->detail('id = '.$data['oid']);
+
+        return format_return_data($res);
     }
 
     //删除

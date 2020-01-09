@@ -8,6 +8,7 @@ class OrderModel extends Model
 {
 	function __construct(){
 		$this->order	= "order";
+		$this->result	= "result";
 		$this->listRows = config('paginate.list_rows');
 	}
 	
@@ -52,7 +53,7 @@ class OrderModel extends Model
 	**/
 	public function add($data) {
 		// 添加单条数据
-		$res = db('order')->insert($data);
+		$res = db('order')->insertGetId($data);
 		//echo OrderModel::getLastSql();
 		return $res;
 	}
@@ -66,6 +67,21 @@ class OrderModel extends Model
 		$res = Db::name($this->order)->where($where)->data($data)->update();
 		//echo OrderModel::getLastSql();
 		return $res;
+	}
+
+	/*
+	* 获取订单详情
+	* @post:
+	**/
+	public function detail($where) {
+		// 获取单条数据
+		$order_res = Db::name($this->order)->where($where)->find();
+
+		// 获取返回内容
+		$res = Db::name($this->result)->where('rule_id', 'in', $order_res['result_ids'])->select();
+
+		$order_res['result'] = $res;
+		return $order_res;
 	}
 	
 	/*

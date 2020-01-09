@@ -8,7 +8,8 @@ class Rule
     public function query()
     {
         $data = input('param.');
-        $where = '';
+        $queryParam = $data['condition'];
+        $where = array_filter($queryParam);
         $pageNumber = $data['pageNumber'] ? $data['pageNumber'] : '1';
         $type = new RuleModel();
 		// 查询数据集
@@ -16,7 +17,7 @@ class Rule
 		return format_return_data($res);
     }
 
-    //添加
+        //添加
     public function add()
     {
         $data = input('param.');
@@ -26,14 +27,15 @@ class Rule
             'content_3' => $data['content_3']
         ];
 
-        $score_range = explode('|', $data['score_range']);
+        //$score_range = explode('|', $data['score_range']);
         $ruleData = [
             'question_type_id'  => $data['question_type_id'],
             'rule_name'         => $data['rule_name'],
             'nums'              => $data['nums'],
             'score_type'        => $data['score_type'],
-            'min_score'         => $score_range['0'],
-            'max_score'         => $score_range['1'],
+            'rule_str'          => $data['rule_str'],
+            'min_score'         => 0,   //$score_range['0'],
+            'max_score'         => 0    //$score_range['1'],
         ];
 
         $type = new RuleModel();
@@ -57,14 +59,16 @@ class Rule
             'content_3' => $data['content_3']
         ];
 
-        $score_range = explode('|', $data['score_range']);
+        //$score_range = explode('|', $data['score_range']);
         $ruleData = [
+            'id'                => $data['id'],
             'question_type_id'  => $data['question_type_id'],
             'rule_name'         => $data['rule_name'],
             'nums'              => $data['nums'],
             'score_type'        => $data['score_type'],
-            'min_score'         => $score_range['0'],
-            'max_score'         => $score_range['1'],
+            'rule_str'          => $data['rule_str'],
+            'min_score'         => 0,   //$score_range['0'],
+            'max_score'         => 0    //$score_range['1'],
         ];
 
         $type = new RuleModel();
@@ -84,7 +88,7 @@ class Rule
 
         $type = new RuleModel();
         // 查询数据集
-        $res = $type->del('id = '.$data['id']);
+        $res = $type->del($data['id']);
 
         return format_return_data();
     }

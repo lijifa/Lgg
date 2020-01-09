@@ -41,14 +41,15 @@ class Rule
             'content_3' => $data['content_3']
         ];
 
-        $score_range = explode('|', $data['score_range']);
+        //$score_range = explode('|', $data['score_range']);
         $ruleData = [
             'question_type_id' => $data['question_type_id'],
             'rule_name' => $data['rule_name'],
             'nums' => $data['nums'],
             'score_type' => $data['score_type'],
-            'min_score' => $score_range['0'],
-            'max_score' => $score_range['1'],
+            'rule_str'  => $data['rule_str'],
+            'min_score' => 0,   //$score_range['0'],
+            'max_score' => 0    //$score_range['1'],
         ];
 
         $type = new RuleModel();

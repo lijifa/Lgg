@@ -31,17 +31,53 @@ function format_return_data ($data = '', $flag = 'success') {
 }
 
 //计算分数
-// function clacScore ($data, $no = '', flag = 1) {
-// 	$resScore = 0;
-// 	if ($flag == 0) {
-// 		//算总分
-// 		foreach ($data as $key => $item) {
-			
-// 		}
-// 	}
+function clacScore ($ruledata, $answerData) {
 
+    $allScore = 0;
+	$itemScore = [];
+    $score = 0;
+	//总分
+    foreach ($answerData as $key => $value) {
+        $allScore += $value['2'];
+    }
 
-// }
+	foreach ($ruledata as $k => $item) {  
+        //分项
+        if($item['score_type'] == 1){
+            foreach ($answerData as $kk => $value) {
+                //echo strpos($value['0'], $item['nums']);
+                if (strpos($item['nums'], $value['0'])) {
+                    $score += $value['2'];
+                }
+            }
+            array_push($itemScore, ['score' => $score, 'rule_id' => $item['id']]);
+            $score=0;
+        }
+	}
+
+    return [
+        'allScore' => $allScore,
+        'itemScore' => $itemScore
+    ];
+}
+
+//判断规则条件是否正确
+function isRuleOk($x, $ruleStr){
+    $ruleTmp = '';
+    if (substr_count($ruleStr, '<') > 1 || substr_count($ruleStr, '>') > 1) {
+        $ruleTmp = str_replace("x", 'x && x', $ruleStr);
+    }else{
+        $ruleTmp = $ruleStr;
+    }
+
+    // if (substr_count('>', $ruleStr) > 1) {
+    //      $rule = str_replace("x", 'x && x', $ruleStr);
+    // }
+
+    $rule = str_replace("x", $x, $ruleTmp);
+    $result = eval("return $rule;");
+    return $result;
+}
 
 //随机字符串
 function getRandChar($len){

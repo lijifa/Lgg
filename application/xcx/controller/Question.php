@@ -17,6 +17,19 @@ class Question
 		return format_return_data($res);
     }
 
+    //列表【全部】
+    public function queryAll()
+    {
+        $data = input('param.');
+        $where = $data['condition'];
+        array_filter($where);
+
+        $type = new QuestionModel();
+        // 查询全部数据集
+        $res = $type->getAllList($where);
+        return format_return_data($res);
+    }
+
     //添加
     public function add()
     {

@@ -70,7 +70,7 @@ class RuleModel extends Model
 	public function edit($where, $ruleData, $resultData) {
 		// 更新单条数据
 		$res_1 = Db::name($this->rule)->where($where)->data($ruleData)->update();
-		$res_2 = Db::name($this->result)->where($where)->data($resultData)->update();
+		$res_2 = Db::name($this->result)->where('rule_id = '.$ruleData['id'])->data($resultData)->update();
 		//echo RuleModel::getLastSql();
 		return $res_2;
 	}
@@ -79,9 +79,10 @@ class RuleModel extends Model
 	* 删除
 	* @post:
 	**/
-	public function del($where) {
+	public function del($rid) {
 		// 更新单条数据
-		$res = Db::name($this->rule)->where($where)->delete();
+		$res = Db::name($this->rule)->where('id = '.$rid)->delete();
+		$res_2 = Db::name($this->result)->where('rule_id = '.$rid)->delete();
 		//echo RuleModel::getLastSql();
 		return $res;
 	}
