@@ -22,6 +22,7 @@ class Rule
     {
         $data = input('param.');
         $resultData = [
+            'score_type' => $data['score_type'],
             'content_1' => $data['content_1'],
             'content_2' => $data['content_2'],
             'content_3' => $data['content_3']
@@ -54,6 +55,7 @@ class Rule
         }
 
         $resultData = [
+            'score_type' => $data['score_type'],
             'content_1' => $data['content_1'],
             'content_2' => $data['content_2'],
             'content_3' => $data['content_3']
@@ -65,6 +67,7 @@ class Rule
             'question_type_id'  => $data['question_type_id'],
             'rule_name'         => $data['rule_name'],
             'nums'              => $data['nums'],
+            'qs_no'             => $data['qs_no'],
             'score_type'        => $data['score_type'],
             'rule_str'          => $data['rule_str'],
             'min_score'         => 0,   //$score_range['0'],

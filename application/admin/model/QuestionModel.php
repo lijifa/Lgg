@@ -15,7 +15,7 @@ class QuestionModel extends Model
 	* 获取列表
 	* @post:
 	**/
-	public function getList($where, $pagenum=1, $order='id desc') {
+	public function getList($where, $pagenum=1, $order='question_no asc') {
 
 		$count = Db::name($this->question)->where($where)->count();
 		
