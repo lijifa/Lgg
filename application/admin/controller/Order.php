@@ -1,15 +1,11 @@
 <?php
 namespace app\admin\controller;
-use app\admin\model\UserModel;
+use app\admin\model\RuleModel;
+use app\admin\model\OrderModel;
+use app\admin\model\QuestionTypeModel;
 
-class User
+class Order
 {
-    public function login()
-    {
-        return format_return_data();
-    }
-
-
 
     //列表
     public function query()
@@ -18,36 +14,25 @@ class User
         $queryParam = $data['condition'];
         $where = array_filter($queryParam);
         $pageNumber = $data['pageNumber'] ? $data['pageNumber'] : '1';
-        $type = new UserModel();
+        $type = new OrderModel();
         // 查询数据集
         $res = $type->getList($where, $pageNumber);
         return format_return_data($res);
     }
 
-    //添加
-    public function add()
+
+    public function getDetail()
     {
         $data = input('param.');
-        $type = new UserModel();
-        // 查询数据集
-        $res = $type->add($data);
-
-        return format_return_data();
-    }
-
-    //修改
-    public function edit()
-    {
-        $data = input('param.');
-        if(!$data['id']){
+        if(!$data['oid']){
             return format_return_data('', 'error');
         }
 
-        $type = new UserModel();
-        // 查询数据集
-        $res = $type->edit('id = '.$data['id'], $data);
+        $order = new OrderModel();
+        // 查询订单详情
+        $res = $order->detail('id = '.$data['oid']);
 
-        return format_return_data();
+        return format_return_data($res);
     }
 
     //删除
@@ -58,7 +43,7 @@ class User
             return format_return_data('', 'error');
         }
 
-        $type = new UserModel();
+        $type = new OrderModel();
         // 查询数据集
         $res = $type->del('id = '.$data['id']);
 

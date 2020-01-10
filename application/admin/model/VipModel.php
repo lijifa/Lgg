@@ -15,11 +15,11 @@ class VipModel extends Model
 	* 获取列表
 	* @post:
 	**/
-	public function getList($where=1, $pagenum=1) {
+	public function getList($where=1, $pagenum=1, $order='id desc') {
 		//return M($this->problem_type)->where($where)->field($field)->limit($limit)->order($order)->select();
 		$count = Db::name($this->vip)->where($where)->count();
 		
-		$list = Db::name($this->vip)->where($where)->page($pagenum.','.$this->listRows)->select();
+		$list = Db::name($this->vip)->where($where)->page($pagenum.','.$this->listRows)->order($order)->select();
 
 		$resData = [
 			'totalRow' => $count,
@@ -31,9 +31,38 @@ class VipModel extends Model
 
 		return $resData;
 	}
-	//添加
 
-	//删除
 
-	//编辑
+	/*
+	* 添加
+	* @post:
+	**/
+	public function add($data) {
+		// 添加单条数据
+		$res = db('vip')->insert($data);
+		//echo QuestionModel::getLastSql();
+		return $res;
+	}
+
+	/*
+	* 编辑
+	* @post:
+	**/
+	public function edit($where, $data) {
+		// 更新单条数据
+		$res = Db::name($this->vip)->where($where)->data($data)->update();
+		//echo QuestionModel::getLastSql();
+		return $res;
+	}
+	
+	/*
+	* 删除
+	* @post:
+	**/
+	public function del($where) {
+		// 更新单条数据
+		$res = Db::name($this->vip)->where($where)->delete();
+		//echo QuestionModel::getLastSql();
+		return $res;
+	}
 }
