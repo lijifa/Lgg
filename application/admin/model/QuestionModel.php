@@ -37,6 +37,28 @@ class QuestionModel extends Model
 	}
 
 	/*
+	* 获取全部列表
+	* @post:
+	**/
+	public function getAllList($where, $order='question_no asc') {
+
+		$count = Db::name($this->question)->where($where)->count();
+		
+		$list = Db::name($this->question)->where($where)->order($order)->select();
+
+		foreach($list as $key=>$item){
+		    $qm = QuestionType::get($item['question_type_id']);
+			$list[$key]['typename'] = $qm->typename;
+		}
+		$resData = [
+			'totalRow' => $count,
+	        'list' => $list
+		];
+
+		return $resData;
+	}
+
+	/*
 	* 添加
 	* @post:
 	**/
