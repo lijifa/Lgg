@@ -36,6 +36,7 @@ class Rule
     {
         $data = input('param.');
         $resultData = [
+            'score_type' => $data['score_type'],
             'content_1' => $data['content_1'],
             'content_2' => $data['content_2'],
             'content_3' => $data['content_3']
