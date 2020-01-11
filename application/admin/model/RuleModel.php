@@ -23,7 +23,7 @@ class RuleModel extends Model
 				->alias("r") //取一个别名
 		      //与result表进行关联，取名c，并且r表的rule_id字段等于result表的rule_id字段
 		      ->join('result c', 'r.id = c.rule_id')
-		      ->field('r.*, c.id as cid, c.content_1, c.content_2, c.content_3')
+		      ->field('r.*, c.id as cid, c.audio_path, c.content_1, c.content_2, c.content_3')
 		      ->where($where)
 		      ->page($pagenum.','.$this->listRows)
 		      ->order($order)
