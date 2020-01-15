@@ -16,7 +16,7 @@ class OrderModel extends Model
 	* 获取列表
 	* @post:
 	**/
-	public function getList($where, $pagenum=1, $order='num asc') {
+	public function getList($where, $pagenum=1, $order='id desc') {
 		$count = Db::name($this->order)->where($where)->count();
 		
 		$list = Db::name($this->order)->where($where)->page($pagenum.','.$this->listRows)->order($order)->select();
