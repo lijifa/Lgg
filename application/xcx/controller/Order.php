@@ -38,7 +38,7 @@ class Order
 
         // 根据规则计算用户最后得分分数
         $res = clacScore($ruleData['list'], $data['answerOption']);
-// dump($res);
+ 
         // 根据设置的计分规则判断条件得出结果
         $all_content   = '';
         $item_content  = [];

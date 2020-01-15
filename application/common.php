@@ -40,12 +40,11 @@ function clacScore ($ruledata, $answerData) {
     foreach ($answerData as $key => $value) {
         $allScore += $value['2'];
     }
-
 	foreach ($ruledata as $k => $item) {  
         //分项
         if($item['score_type'] == 1){
             foreach ($answerData as $kk => $value) {
-                //echo strpos($value['0'], $item['nums']);
+                
                 if (strpos($item['nums'], $value['0'])) {
                     $score += $value['2'];
                 }
