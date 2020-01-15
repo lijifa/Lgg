@@ -8,6 +8,7 @@ class QuestionModel extends Model
 {
 	function __construct(){
 		$this->question	= "question";
+		$this->answer	= "answer";
 		$this->listRows = config('paginate.list_rows');
 	}
 	
@@ -35,10 +36,15 @@ class QuestionModel extends Model
 	* 获取列表【全部】
 	* @post:
 	**/
-	public function getAllList($where, $order='id desc') {
+	public function getAllList($where, $order='question_no asc') {
 		$count = Db::name($this->question)->where($where)->count();
 		
 		$list = Db::name($this->question)->where($where)->order($order)->select();
+
+		foreach ($list as $key => $value) {
+			$answerOption = Db::name($this->answer)->where('question_id = '.$value['id'])->order('num asc')->select();
+			$list[$key]['answerOption'] = $answerOption;
+		}
 	
 		$resData = [
 			'totalRow' => $count,

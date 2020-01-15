@@ -29,7 +29,6 @@ class Order
             'user_id' => $data['user_id'],
             'user_name' => $data['user_name'],
             'question_type_id' => $data['question_type_id'],
-            'score' => '0',
             'state' => 1
         ];
 
@@ -39,7 +38,7 @@ class Order
 
         // 根据规则计算用户最后得分分数
         $res = clacScore($ruleData['list'], $data['answerOption']);
-
+// dump($res);
         // 根据设置的计分规则判断条件得出结果
         $all_content   = '';
         $item_content  = [];
@@ -74,12 +73,15 @@ class Order
             'all' => $all_content,
             'item' => $item_content
         ];
-        
+
+
+      //  dump(json_encode($result));exit();
         //获取分类名称、价格
         $questionType = new QuestionTypeModel();
         $qtData = $questionType->detail('id = '. $data['question_type_id']);
         $addData['question_type'] = $qtData['typename'];
         $addData['price'] = $qtData['price'];
+        $addData['score_json'] = json_encode($res);
         $addData['result_ids'] = trim($result_ids, ',');
         
         // 添加订单数据
