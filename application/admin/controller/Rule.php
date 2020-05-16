@@ -49,7 +49,12 @@ class Rule
 
     public function uploadFiles(){
         // 获取表单上传文件 例如上传了001.jpg
-        $file = request()->file('file');
+        $type = input('post.uploadType');
+        if ($type == 'img') {
+            $file = request()->file('avatar');
+        }else{
+            $file = request()->file('file');
+        }
         
         // 移动到框架应用根目录/public/uploads/ 目录下
         if($file){

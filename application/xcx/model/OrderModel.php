@@ -52,6 +52,7 @@ class OrderModel extends Model
 	**/
 	public function add($data) {
 		$data['create_time'] = date("Y-m-d H:i:s");
+		$data['update_time'] = date("Y-m-d H:i:s");
 		// 添加单条数据
 		$res = db('order')->insertGetId($data);
 		//echo OrderModel::getLastSql();

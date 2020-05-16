@@ -4,12 +4,12 @@ namespace app\admin\model;
 use think\Model;
 use think\Db;
 
-class QuestionTypeModel extends Model
+class MeditationModel extends Model
 {
 	// 设置当前模型对应的完整数据表名称
-	protected $table = 'zx_question_type';
+	protected $table = 'zx_meditation';
 	function __construct(){
-		$this->question_type = "question_type";
+		$this->meditation = "meditation";
 		$this->listRows = config('paginate.list_rows');
 	}
 	
@@ -18,10 +18,10 @@ class QuestionTypeModel extends Model
 	* @post:
 	**/
 	public function getList($where, $pagenum=1, $order='id asc') {
-		//return M($this->question_type)->where($where)->field($field)->limit($limit)->order($order)->select();
-		$count = Db::name($this->question_type)->where($where)->count();
+		//return M($this->meditation)->where($where)->field($field)->limit($limit)->order($order)->select();
+		$count = Db::name($this->meditation)->where($where)->count();
 		
-		$list = Db::name($this->question_type)->where($where)->page($pagenum.','.$this->listRows)->order($order)->select();
+		$list = Db::name($this->meditation)->where($where)->page($pagenum.','.$this->listRows)->order($order)->select();
 	
 		$resData = [
 			'totalRow' => $count,
@@ -39,8 +39,8 @@ class QuestionTypeModel extends Model
 	* @post:
 	**/
 	public function getSelect($where=1, $field='') {
-		//return M($this->question_type)->where($where)->field($field)->limit($limit)->order($order)->select();
-		$list = Db::name($this->question_type)->where($where)->field($field)->select();
+		//return M($this->meditation)->where($where)->field($field)->limit($limit)->order($order)->select();
+		$list = Db::name($this->meditation)->where($where)->field($field)->select();
 	
 		$resData = [
 	        'list' => $list
@@ -55,9 +55,11 @@ class QuestionTypeModel extends Model
 	* @post:
 	**/
 	public function add($data) {
+		$data['create_time'] = date("Y-m-d H:i:s");
+		$data['update_time'] = date("Y-m-d H:i:s");
 		// 添加单条数据
-		$res = db('question_type')->insertGetId($data);
-		//echo QuestionModel::getLastSql();
+		$res = db('meditation')->insertGetId($data);
+		//echo MeditationModel::getLastSql();
 		return $res;
 	}
 
@@ -67,8 +69,8 @@ class QuestionTypeModel extends Model
 	**/
 	public function edit($where, $data) {
 		// 更新单条数据
-		$res = Db::name($this->question_type)->where($where)->data($data)->update();
-		//echo QuestionModel::getLastSql();
+		$res = Db::name($this->meditation)->where($where)->data($data)->update();
+		//echo MeditationModel::getLastSql();
 		return $res;
 	}
 	
@@ -78,8 +80,8 @@ class QuestionTypeModel extends Model
 	**/
 	public function del($where) {
 		// 更新单条数据
-		$res = Db::name($this->question_type)->where($where)->delete();
-		//echo QuestionModel::getLastSql();
+		$res = Db::name($this->meditation)->where($where)->delete();
+		//echo MeditationModel::getLastSql();
 		return $res;
 	}
 }
